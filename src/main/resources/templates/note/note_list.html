@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Note</title>
+</head>
+<body>
+    <h1>Note list</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>content</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <thead>
+            <tr th:if="${notes.isEmpty()}">
+                <td colspan="3"> No Notes Available </td>
+            </tr>
+            <tr th:each="note: ${notes}">
+                <td><span th:text="${note.title}"></span></td>
+                <td><span th:text="${note.content}"></span></td>
+                <td>
+                    <form method="post" th:action="@{/note/delete/{id}(id=${note.id})}">
+                        <input type="submit" th:value="delete"/>
+                    </form>
+                    <form method="get" th:action="@{/note/edit/{id}(id=${note.id})}">
+                        <input type="submit" th:value="edit"/>
+                    </form>
+                </td>
+            </tr>
+        </thead>
+    </table>
+</body>
+</html>

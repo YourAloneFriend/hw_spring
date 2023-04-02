@@ -16,7 +16,8 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public List<Note> listAll() {
-        return notes.values().stream().toList();
+        List<Note> noteList = notes.values().stream().toList();
+        return noteList;
     }
 
     @Override
