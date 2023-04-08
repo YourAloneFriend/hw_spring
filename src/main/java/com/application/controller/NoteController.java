@@ -21,7 +21,10 @@ public class NoteController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getNote(){
         ModelAndView mv = new ModelAndView("note");
-        noteService.add(Note.builder().id(1).title("smth").content("text").build());
+        Note note = new Note();
+        note.setTitle("Title");
+        note.setContent("Context");
+        noteService.add(note);
         return mv;
     }
 

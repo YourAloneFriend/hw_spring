@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id "org.flywaydb.flyway" version "9.8.1"
 }
 
 group = 'com.application'
@@ -21,12 +22,26 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.h2database:h2:2.1.214'
+	testImplementation 'junit:junit:4.13.1'
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+flyway {
+	def props = new Properties()
+	File propsFile = file("src/main/resources/application.properties")
+	props.load(new FileInputStream(propsFile));
+
+	url = props.get("spring.datasource.url")
+	user = props.get("spring.datasource.username")
+	password = props.get("spring.datasource.password")
 }
 
 tasks.named('test') {

@@ -1,43 +1,44 @@
 package com.application.service.serviceImpl;
 
 import com.application.entity.Note;
+import com.application.repository.NoteRepository;
 import com.application.service.NoteService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Service
+@RequiredArgsConstructor
 public class NoteServiceImpl implements NoteService {
 
-    private Map<Long, Note> notes = new HashMap<>();
+
+    private final NoteRepository repository;
 
     @Override
     public List<Note> listAll() {
-        List<Note> noteList = notes.values().stream().toList();
-        return noteList;
+        return repository.findAll();
     }
 
     @Override
-    public Note add(Note note) {
-        notes.put(note.getId(), note);
-        return note;
+    public void add(Note note) {
+        repository.save(note);
     }
 
     @Override
     public void deleteById(long id) {
-        notes.remove(id);
+        repository.deleteById(id);
     }
 
     @Override
     public void update(Note note) {
-        notes.replace(note.getId(), note);
+        repository.updateNote(note.getTitle(), note.getContent(), note.getId());
     }
 
     @Override
     public Note getById(long id) {
-        return notes.get(id);
+        return repository.findById(id).get();
     }
 }
