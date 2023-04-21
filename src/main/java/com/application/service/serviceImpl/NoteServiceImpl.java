@@ -4,11 +4,9 @@ import com.application.entity.Note;
 import com.application.repository.NoteRepository;
 import com.application.service.NoteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 @Service
 @RequiredArgsConstructor
