@@ -13,8 +13,13 @@ on:
       - master
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: "Run tests"
-      run: "./gradlew test"
+      - name: Checkout project sources
+        uses: actions/checkout@v2
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Run build with Gradle Wrapper
+        run: ./gradlew test
